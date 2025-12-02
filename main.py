@@ -11,8 +11,10 @@ import google.generativeai as genai
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK_URL"]
 
-# Zennのトレンド
-RSS_URL = "https://zenn.dev/feed"
+
+# 変更後（例：AUTOMATONにする場合）
+RSS_URL = "https://automaton-media.com/feed/"
+
 # 成功した最強モデル
 MODEL_NAME = 'gemini-2.5-flash' 
 
@@ -22,12 +24,14 @@ model = genai.GenerativeModel(MODEL_NAME)
 
 def get_sarcastic_summary(title):
     prompt = f"""
-    あなたはIT業界のご意見番であり、皮肉屋の辛口コメンテーターです。
-    以下の記事タイトルを見て、内容を推測し、
-    「辛口かつユーモアを交えて」3行以内でコメントしてください。
+    あなたは「辛口な古参ゲーマー（またはアニオタ）」です。
+    以下のニュースタイトルを見て、
+    「ゲーマー視点の皮肉や、オタク特有の早口なノリ」で3行以内でコメントしてください。
+    感嘆符（！）やネットスラングを使ってもいいです。呪術廻戦ネタを使ってもいいです。
     
     記事タイトル: {title}
     """
+
     try:
         response = model.generate_content(prompt)
         return response.text.strip()
